@@ -4,7 +4,7 @@
     "wait_time_min": 15,
     "wait_time_max": 20,
     "score": 3,
-    "full_extra_tasks": false,
+    "full_extra_tasks": true,
     "notify_email": "1619620394@qq.com",
     "email_password": "eqpmixnnwmofbaab",
     "smtp_server": "smtp.qq.com",

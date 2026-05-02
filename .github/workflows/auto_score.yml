@@ -2,44 +2,36 @@ name: Auto Score
 
 on:
   schedule:
-    - cron: '0 17 * * *'  # UTC 17:00（北京时间1:00）
+    - cron: '0 17 * * *'  # UTC 17:00 (北京时间1:00)
   workflow_dispatch:
 
 jobs:
   score:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: 安装git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests>=2.25.0 pycryptodome>=3.9.0 PyNaCl>=1.4.0 -i https://pypi.tuna.tsinghua.edu.cn/simple
-          git clone https://github.com/mos9527/pyncm.git
-          cd pyncm
-          pip install .
-
-      - name: Run script
-        env:
-          MUSIC_U: ${{ secrets.MUSIC_U }}
-          CSRF: ${{ secrets.CSRF }}
-          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          WAIT_TIME_MIN: ${{ secrets.WAIT_TIME_MIN }}
-          WAIT_TIME_MAX: ${{ secrets.WAIT_TIME_MAX }}
-          SCORE: ${{ secrets.SCORE }}
-          FULL_EXTRA_TASKS: ${{ secrets.FULL_EXTRA_TASKS }}
-        run: python main.py
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run script
+      env:
+        MUSIC_U: ${{ secrets.MUSIC_U }}
+        CSRF: ${{ secrets.CSRF }}
+        NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+        SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        WAIT_TIME_MIN: ${{ secrets.WAIT_TIME_MIN }}
+        WAIT_TIME_MAX: ${{ secrets.WAIT_TIME_MAX }}
+        SCORE: ${{ secrets.SCORE }}
+        FULL_EXTRA_TASKS: ${{ secrets.FULL_EXTRA_TASKS }}
+      run: python main.py 

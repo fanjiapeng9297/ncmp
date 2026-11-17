@@ -1,13 +1,20 @@
 name: Keepalive
 on:
   schedule:
-    - cron: '0 0 1 * *' # UTC时间，每月1号执行保活
-  workflow_dispatch:    # 支持手动点一下立即跑保活
+    - cron: '0 0 1 * *' # UTC每月1号，北京时间8点
+  workflow_dispatch:
+
+# 重点：显式声明需要写入仓库内容权限
+permissions:
+  contents: write
+
 jobs:
   keepalive:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: 保活空提交
         run: |
           git config --global user.name "github-actions"

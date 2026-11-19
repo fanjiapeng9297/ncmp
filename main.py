@@ -35,8 +35,6 @@ def main():
         bot = MusicPartnerBot(config, logger, session)
         success = bot.run()
         
-       from datetime import datetime
-
         # 处理执行结果
         now_time = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
         end_message = "✅ 执行成功" if success else "❌ 执行失败"

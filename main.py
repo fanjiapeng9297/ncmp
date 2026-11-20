@@ -50,19 +50,19 @@ def main():
                 "网易云音乐合伙人 - 执行失败提醒",
                 f"程序执行失败，请检查日志\n执行时间：{now_time}"
             )
-        
-        except Exception as e:
-            error_message = f"程序异常: {str(e)}"
-            now_time = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
-            logger.error(error_message)
-            logger.end("❌ 执行失败", True)
-            try:
-                notifier.send_notification(
-                    "网易云音乐合伙人 - 异常提醒",
-                    f"{error_message}\n执行时间：{now_time}"
-                )
-            except Exception as notify_error:
-                logger.error(f"发送异常通知时出错: {str(notify_error)}")
+
+    except Exception as e:
+        error_message = f"程序异常: {str(e)}"
+        now_time = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
+        logger.error(error_message)
+        logger.end("❌ 执行失败", True)
+        try:
+            notifier.send_notification(
+                "网易云音乐合伙人 - 异常提醒",
+                f"{error_message}\n执行时间：{now_time}"
+            )
+        except Exception as notify_error:
+            logger.error(f"发送异常通知时出错: {str(notify_error)}")
 
 if __name__ == "__main__":
     main()
